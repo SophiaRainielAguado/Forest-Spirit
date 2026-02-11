@@ -7,17 +7,14 @@ class Menu extends Phaser.Scene {
         // for cleaner path arguments
         this.load.path = "./assets/"
 
-        // object sprites
-        this.load.image("player", "playerSprite.png")
-
         // user interface sprites
-        this.load.image("start", "startButton.png")
-        this.load.image("start_pressed", "StartButton_Pressed.png")
-        this.load.image("credits", "creditsButton.png")
-        this.load.image("credits_pressed", "creditsButton_Pressed.png")
+        this.load.image("start", "userInterface/startButton.png")
+        this.load.image("start_pressed", "userInterface/StartButton_Pressed.png")
+        this.load.image("credits", "userInterface/creditsButton.png")
+        this.load.image("credits_pressed", "userInterface/creditsButton_Pressed.png")
 
         //background
-        this.load.image("bg_menu", "background_menu.png")
+        this.load.image("bg_menu", "userInterface/background_menu.png")
     }
 
     create() {
