@@ -13,3 +13,5 @@ const config = {
 }
 
 let game = new Phaser.Game(config)
+
+let keyJUMP, keyRESET, keyLEFT, keyRIGHT

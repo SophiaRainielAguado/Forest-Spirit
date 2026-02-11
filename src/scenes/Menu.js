@@ -13,8 +13,8 @@ class Menu extends Phaser.Scene {
         // user interface sprites
         this.load.image("start", "tempStartButton.png")
         this.load.image("start_pressed", "tempCreditsButton_Pressed.png")
-        this.load.image("credits", "tempCreditsButton.png")
-        this.load.image("credits_pressed", "tempCreditsButton_Pressed.png")
+        this.load.image("credits", "CreditsButton.png")
+        this.load.image("credits_pressed", "CreditsButton_Pressed.png")
     }
 
     create() {
@@ -49,17 +49,17 @@ class Menu extends Phaser.Scene {
         })
 
         // credits button
-        this.creditsButton = this.add.image(game.config.width/2, game.config.height/2 + 150, "credits")
+        this.creditsButton = this.add.sprite(game.config.width/2, game.config.height/2 + 150, "credits")
         .setInteractive()
-        .setScale(0.25)
+        .setScale(0.5)
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.scene.start("creditsScene")
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
-            this.creditsButton.setTint(0x00FF00)
+            this.creditsButton.setTexture("credits_pressed")
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-            this.creditsButton.clearTint()
+            this.creditsButton.setTexture("credits")
         })
     }
     update() {
