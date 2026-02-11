@@ -14,7 +14,6 @@ class Credits extends Phaser.Scene {
     create(){
         this.creditsButton = this.add.sprite(game.config.width/2, game.config.height/2 + 150, "credits")
         .setInteractive()
-        .setScale(0.5)
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
             this.scene.start("menuScene")
         })
