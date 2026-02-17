@@ -6,11 +6,11 @@ const config = {
     physics:{
         default: "arcade",
         arcade: {
-            gravity: 4000,
+            gravity: {y:4000},
             debug: true
         }
     },
-    scene: [Play, Credits]
+    scene: [Menu, Play, Credits]
 }
 
 let game = new Phaser.Game(config)
