@@ -18,6 +18,11 @@ class Menu extends Phaser.Scene {
 
         //background
         this.load.image("bg_menu", "background_menu.png")
+        this.load.image("sun", "background_sun.png")
+        this.load.image("sky", "background_sky.png")
+        this.load.image("clouds", "background_clouds.png")
+        this.load.image("ground", "ground.png")
+        this.load.image("block", "runningBlock.png")
     }
 
     create() {
