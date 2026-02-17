@@ -6,6 +6,7 @@ const config = {
     physics:{
         default: "arcade",
         arcade: {
+            gravity: 4000,
             debug: true
         }
     },

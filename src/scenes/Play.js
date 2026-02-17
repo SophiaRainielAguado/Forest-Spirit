@@ -25,17 +25,13 @@ class Play extends Phaser.Scene {
             .setDirectControl().setImmovable();
 
 
+        // User Input
         this.cursors = this.input.keyboard.createCursorKeys();
-
 
         // Input reader to toggle Debug -- From CP: Scrolling States
         this.input.keyboard.on('keydown-D', function () {
             this.physics.world.drawDebug = this.physics.world.drawDebug ? false : true
             this.physics.world.debugGraphic.clear()
-        }, this)
-
-        this.input.keyboard.on('keydown-SPACE', function () {
-            console.log("spacePressed")
         }, this)
 
         //this.forestSpirit = new Spirit(this, 100, game.config.height/2, "player", 0)
@@ -44,7 +40,7 @@ class Play extends Phaser.Scene {
             .setDebugBodyColor(0x00BB11)
             .setBounce(0.2);
 
-        this.physics.add.collider(this.forestSpirit, ground);
+        //this.physics.add.collider(this.forestSpirit, ground);
         this.physics.add.collider(this.forestSpirit, platform1);
 
 
@@ -52,7 +48,7 @@ class Play extends Phaser.Scene {
 
     update() {
         const {up} = this.cursors;
-        if (up.isDown)
+        if (up.isDown && this.forestSpirit.body.touching.down)
         {
             this.forestSpirit.setVelocityY(-300);
         }
