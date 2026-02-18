@@ -26,10 +26,17 @@ class Play extends Phaser.Scene {
     }
 
     create() {
+        // SCORE
+        this.score = 0; 
+        this.speed = 4;
+
         // BACKGROUND
         this.sky = this.add.tileSprite(0, 0, 1280, 480, "sky").setOrigin(0,0)
         this.sun = this.add.image(100, game.config.height / 2, "sun")
         this.clouds = this.add.tileSprite(0, 0, 1280, 480, "clouds").setOrigin(0,0)
+
+        // PLATFORM || GROUND
+        this.ground = this.add.tileSprite(0, 317, 640, 182, "ground").setOrigin(0,0)
         
         //KEYBINDS
         // define keys
@@ -51,7 +58,8 @@ class Play extends Phaser.Scene {
     update() {
         // BACKGROUND
         this.sun.rotation += 0.01;
-        this.sky.tilePositionX -= 2;
-        this.clouds.tilePositionX -= 4;
+        this.sky.tilePositionX -= this.speed / 2;
+        this.clouds.tilePositionX -= this.speed;
+        this.ground.tilePositionX += this.speed;
     }
 }
