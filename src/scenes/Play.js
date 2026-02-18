@@ -4,28 +4,6 @@ class Play extends Phaser.Scene {
     }
 
     create() {
-        // Score Variables
-        this.score = 0; 
-        this.speed = 0.1;
-
-        // User Input
-        this.cursors = this.input.keyboard.createCursorKeys();
-
-    preload() {
-        // for cleaner path arguments
-        this.load.path = "./assets/"
-
-        // object sprites
-        this.load.image("player", "playerSprite.png")
-
-        // background
-        this.load.image("sun", "background_sun.png")
-        this.load.image("sky", "background_sky.png")
-        this.load.image("clouds", "background_clouds.png")
-        this.load.image("clouds", "background_ground.png")
-    }
-
-    create() {
         // SCORE
         this.score = 0; 
         this.speed = 4;
