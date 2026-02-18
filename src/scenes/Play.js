@@ -12,9 +12,13 @@ class Play extends Phaser.Scene {
         this.sky = this.add.tileSprite(0, 0, 1280, 480, "sky").setOrigin(0,0)
         this.sun = this.add.image(100, game.config.height / 2, "sun")
         this.clouds = this.add.tileSprite(0, 0, 1280, 480, "clouds").setOrigin(0,0)
-
-        // PLATFORM || GROUND
         this.ground = this.add.tileSprite(0, 317, 640, 182, "ground").setOrigin(0,0)
+
+        // PHYSICS PLATFORM || GROUND
+        const groundGroup = this.physics.add.staticGroup();
+        this.platform = groundGroup.create(320, 397);
+        this.platform.setSize(640, 161)
+        this.platform.setVisible(false);
         
         //KEYBINDS
         // define keys
