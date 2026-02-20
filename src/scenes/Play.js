@@ -14,6 +14,18 @@ class Play extends Phaser.Scene {
         this.clouds = this.add.tileSprite(0, 0, 1280, 480, "clouds").setOrigin(0, 0).setAlpha(0.9)
         this.ground = this.add.tileSprite(0, 317, 640, 182, "ground").setOrigin(0, 0)
 
+        // SCORE
+        let scoreConfig = {
+            fontFamily: "Fantasy",
+            fontSize: "16px",
+            color: "#ffffff",
+            alight: "left",
+            padding: { top: 5, bottom: 5 },
+            fixedWidth: 0
+        }
+        this.scoreTitleText = this.add.text(20, game.config.height/2 + 80, "SCORE // ", scoreConfig)
+        this.scoreText = this.add.text(100, game.config.height/2 + 80, this.score, scoreConfig)
+
         // PHYSICS PLATFORM || GROUND
         const groundGroup = this.physics.add.staticGroup();
         this.platform = groundGroup.create(320, 397);
@@ -60,15 +72,18 @@ class Play extends Phaser.Scene {
         }
         const spawnObstaclesPeriodically = () => {
             spawnObstacles()
-            this.time.delayedCall(Phaser.Math.Between(750, 1500), () => {
+            this.time.delayedCall(Phaser.Math.Between(800, 2000), () => {
                 spawnObstaclesPeriodically();
             })
         }
 
         // COLLISION LOGIC
-        // this.physics.add.collider(this.forestSpirit, this.obstacle, (forestSpirit, obstacle) => {
-        //     // TODO
-        // })
+        this.physics.add.collider(this.forestSpirit, this.obstacle, (_, obstacle) => {
+            if(this.forestSpirit.body.blocked.down){
+                //TODO: GAME OVER LOGIC
+                return;
+            }
+        })
 
         spawnObstaclesPeriodically()
     }
@@ -80,6 +95,9 @@ class Play extends Phaser.Scene {
         this.clouds.tilePositionX -= this.speed;
         this.ground.tilePositionX += this.speed;
 
-        this.obstacles.x -= 3 * this.speed
+        this.obstacles.x -= 4 * this.speed
+        if(this.obstacles.x < 0){
+            this.obstacles.destroy();
+        }
     }
 }

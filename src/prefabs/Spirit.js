@@ -12,6 +12,7 @@ class Spirit extends Phaser.Physics.Arcade.Sprite {
         //this.play({ key: "run", repeat: -1})//move down or transfer animations to load scene
 
         this.jumpVelocity = -1250;
+        this.isDead = false;
     }
 
     // create(){
