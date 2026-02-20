@@ -9,9 +9,9 @@ class Play extends Phaser.Scene {
         this.speed = 4;
 
         // BACKGROUND
-        this.sky = this.add.tileSprite(0, 0, 1280, 480, "sky").setOrigin(0,0)
+        this.sky = this.add.tileSprite(0, 0, 1280, 480, "sky").setOrigin(0,0).setAlpha(0.8)
         this.sun = this.add.image(100, game.config.height / 2, "sun")
-        this.clouds = this.add.tileSprite(0, 0, 1280, 480, "clouds").setOrigin(0,0)
+        this.clouds = this.add.tileSprite(0, 0, 1280, 480, "clouds").setOrigin(0,0).setAlpha(0.9)
         this.ground = this.add.tileSprite(0, 317, 640, 182, "ground").setOrigin(0,0)
 
         // PHYSICS PLATFORM || GROUND
@@ -32,9 +32,23 @@ class Play extends Phaser.Scene {
         }, this)
 
         //this.forestSpirit = new Spirit(this, 100, game.config.height/2, "player", 0)
-        this.forestSpirit = this.physics.add.sprite(100, game.config.height / 2, "player").setScale(0.75)
+        this.forestSpirit = new Spirit(this, 100, game.config.height/2, "player")
             .setCollideWorldBounds(true)
             .setDebugBodyColor(0x00BB11)
+
+        // REFRENCE: https://www.youtube.com/watch?v=7GlxzAcs40c
+        // Player collides with platform / ground
+        this.physics.add.collider(this.forestSpirit, this.platform, () =>{
+            //if(this.forestSpirit.body.blocked.down && this.forestSpirit.anims.currentAnims!== "run"){
+                // Reset animation to running when player sprite hits ground
+            //}
+        })
+
+        const jump = () =>{
+            this.forestSpirit.jump();
+        }
+    
+        this.input.keyboard.on("keydown-SPACE", jump);
     }
 
     update() {
