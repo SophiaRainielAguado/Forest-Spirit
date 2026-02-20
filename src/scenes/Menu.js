@@ -23,6 +23,7 @@ class Menu extends Phaser.Scene {
 
         // SPRITES
         this.load.image("player", "playerSprite.png")
+        this.load.image("rock", "tempBlock.png")
     }
 
     create() {
