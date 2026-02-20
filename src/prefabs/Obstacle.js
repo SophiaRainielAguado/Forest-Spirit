@@ -4,8 +4,8 @@ class Obstacle extends Phaser.Physics.Arcade.Sprite {
 
         this.scene.add.existing(this);
         this.scene.physics.add.existing(this);
-        
-        this.body.setSize(64, 64);
+
+        this.body.setSize(48, 48);
         this.body.setOffset(0,0);
         this.body.setAllowGravity(false);
 

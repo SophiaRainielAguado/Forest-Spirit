@@ -68,8 +68,16 @@ class Play extends Phaser.Scene {
         this.obstacles = this.add.group()
 
         const spawnObstacles = () => {
-            const obstacle = new Obstacle(this, 700, game.config.height / 2 + 45, "rock")
+            // Random number of rocks
+            const numberOfRocks = Phaser.Math.Between(1, 3)
+            const spacing = 48
+            
+            for(let i = 0; i < numberOfRocks; i++){
+            const x = 700 + i * spacing
+            const obstacle = new Obstacle(this, x, game.config.height / 2 + 52, "rock")
             this.obstacles.add(obstacle)
+            }
+            console.log(`Spawned ${numberOfRocks} rock(s)`);
         }
         const spawnObstaclesPeriodically = () => {
             spawnObstacles()
