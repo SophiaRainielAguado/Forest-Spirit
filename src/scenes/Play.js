@@ -23,8 +23,8 @@ class Play extends Phaser.Scene {
             padding: { top: 5, bottom: 5 },
             fixedWidth: 0
         }
-        this.scoreTitleText = this.add.text(20, game.config.height/2 + 80, "SCORE // ", scoreConfig)
-        this.scoreText = this.add.text(100, game.config.height/2 + 80, this.score, scoreConfig)
+        this.scoreTitleText = this.add.text(20, game.config.height / 2 + 80, "SCORE // ", scoreConfig)
+        this.scoreText = this.add.text(100, game.config.height / 2 + 80, this.score, scoreConfig)
 
         // PHYSICS PLATFORM || GROUND
         const groundGroup = this.physics.add.staticGroup();
@@ -65,10 +65,11 @@ class Play extends Phaser.Scene {
 
 
         // OBSTACLES
-        // this.obstacles = this.add.group();
+        this.obstacles = this.add.group()
+
         const spawnObstacles = () => {
-            //this.obstacles.add(new Obstacle(this, new Phaser.Math.Vector2(100, game.config.height / 2), "spirit"))
-            this.obstacles = new Obstacle(this, new Phaser.Math.Vector2(700, game.config.height / 2 + 45), "rock")
+            const obstacle = new Obstacle(this, 700, game.config.height / 2 + 45, "rock")
+            this.obstacles.add(obstacle)
         }
         const spawnObstaclesPeriodically = () => {
             spawnObstacles()
@@ -77,11 +78,21 @@ class Play extends Phaser.Scene {
             })
         }
 
-        // COLLISION LOGIC
-        this.physics.add.collider(this.forestSpirit, this.obstacle, (_, obstacle) => {
-            if(this.forestSpirit.body.blocked.down){
-                //TODO: GAME OVER LOGIC
-                return;
+        // GAME OVER LOGIC
+        this.physics.add.collider(this.forestSpirit, this.obstacles, (forestSpirit, obstacle) => {
+            // Check if the player is landing on top of the rock
+            if (forestSpirit.body.velocity.y > 0 && forestSpirit.body.bottom <= obstacle.body.top + 5) {
+                // Player is falling and lands on top
+                obstacle.destroy();
+                console.log("Rock destroyed by landing on top!");
+
+                // Make player bounce slightly if you want
+                forestSpirit.setVelocityY(-300);
+            } else {
+                // Player hits side or bottom → Game Over
+                forestSpirit.isDead = true;
+                this.scene.start("gameOverScene");
+                console.log("Game Over: collided with rock!");
             }
         })
 
@@ -95,9 +106,15 @@ class Play extends Phaser.Scene {
         this.clouds.tilePositionX -= this.speed;
         this.ground.tilePositionX += this.speed;
 
-        this.obstacles.x -= 4 * this.speed
-        if(this.obstacles.x < 0){
-            this.obstacles.destroy();
-        }
+        // OBSTACLES
+        this.obstacles.getChildren().forEach(obstacle => {
+            obstacle.x -= this.speed
+
+            // destroy when offscreen only when sprite is fully offscreen
+            if (obstacle.x + obstacle.width < 0) {
+                obstacle.destroy();
+                console.log("obstacle destroyed")
+            }
+        })
     }
 }
