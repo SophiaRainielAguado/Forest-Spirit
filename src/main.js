@@ -8,10 +8,10 @@ const config = {
         default: "arcade",
         arcade: {
             gravity: {y:4000},
-            debug: true
+            debug: false
         }
     },
-    scene: [Menu, Play, GameOver, Credits]
+    scene: [Menu, Instructions, Play, GameOver, Credits]
 }
 
 let game = new Phaser.Game(config)

@@ -12,18 +12,42 @@ class Menu extends Phaser.Scene {
         this.load.image("start_pressed", "userInterface/StartButton_Pressed.png")
         this.load.image("credits", "userInterface/creditsButton.png")
         this.load.image("credits_pressed", "userInterface/creditsButton_Pressed.png")
+        this.load.image("retry", "userInterface/retryButton.png")
+        this.load.image("retry_pressed", "userInterface/retryButton_Pressed.png")
+        this.load.image("back", "userInterface/backButton.png")
+        this.load.image("back_pressed", "userInterface/backButton_Pressed.png")
 
         // BACKGROUND
+        // Main Menu Scene
         this.load.image("bg_menu", "userInterface/background_menu.png")
+        
+        //Instruction Scene
+        this.load.image("instruct_grass", "background_ground.png")
+
+        //Play Scene
         this.load.image("sun", "background_sun.png")
         this.load.image("sky", "background_sky.png")
         this.load.image("clouds", "background_clouds.png")
         this.load.image("ground", "ground.png")
         this.load.image("block", "runningBlock.png")
 
+        // GameOver Scene
+        this.load.image("bg_gameOver", "background_gameover.png")
+
+        // Credits Scene
+        this.load.image("bg_credits", "background_credits.png")
+
         // SPRITES
         this.load.image("player", "playerSprite.png")
+        this.load.spritesheet("spirit", "spiritSheet.png", {
+            frameWidth: 143, frameHeight: 154
+        })
         this.load.image("rock", "tempBlock.png")
+
+        // AUDIO
+        this.load.audio("music", "forestSpiritBG.wav");
+        this.load.audio("jump", "jump.wav");
+        this.load.audio("destroy", "destroy.wav");
     }
 
     create() {
@@ -47,7 +71,7 @@ class Menu extends Phaser.Scene {
         this.startButton = this.add.image(115, game.config.height/2, "start")
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.scene.start("playScene")
+            this.scene.start("instructionsScene")
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
             this.startButton.setTexture("start_pressed")
@@ -60,7 +84,7 @@ class Menu extends Phaser.Scene {
         this.creditsButton = this.add.sprite(115, game.config.height/2 + 125, "credits")
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.scene.start("creditsScene")
+            this.scene.start("creditsScene", { previousScene: "menuScene" })
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
             this.creditsButton.setTexture("credits_pressed")
@@ -68,8 +92,22 @@ class Menu extends Phaser.Scene {
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
             this.creditsButton.setTexture("credits")
         })
-    }
-    update() {
 
+        // PLAYER ANIMATIONS
+        this.anims.create({
+            key: "run",
+            frames: this.anims.generateFrameNumbers("spirit", {
+                start: 0,
+                end: 3,
+            }),
+            frameRate: 8,
+            repeat: -1
+        });
+        this.anims.create({
+            key: "jump",
+            frames: [{ key: "spirit", frame: 2}],
+            frameRate: 8,
+            repeat: -1
+        });
     }
 }

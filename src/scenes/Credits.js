@@ -3,25 +3,22 @@ class Credits extends Phaser.Scene {
         super("creditsScene")
     }
 
+    create(data) {
+        //background
+        this.background = this.add.image(0,0, "bg_credits").setOrigin(0)
 
-    preload() {
-        // for cleaner path arguments
-        this.load.path = "./assets/"
-        // object sprites
-        this.load.image("credits", "tempCreditsButton.png")
-    }
+        const previousSceneKey = data.previousScene;
 
-    create(){
-        this.creditsButton = this.add.sprite(game.config.width/2, game.config.height/2 + 150, "credits")
-        .setInteractive()
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.scene.start("menuScene")
-        })
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
-            this.creditsButton.setTexture("credits_pressed")
-        })
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-            this.creditsButton.setTexture("credits")
-        })
+        this.backButton = this.add.sprite(100, this.scale.height / 2 - 50,"back")
+            .setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.scene.start(previousSceneKey);
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+                this.backButton.setTexture("back_pressed");
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+                this.backButton.setTexture("back");
+            });
     }
 }
