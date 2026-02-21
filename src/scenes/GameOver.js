@@ -4,6 +4,8 @@ class GameOver extends Phaser.Scene {
     }
 
     create() {
+        this.background = this.add.image(0,0, "bg_gameOver").setOrigin(0)
+
         this.space = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
         let titleConfig = {
             fontFamily: "Fantasy",
@@ -22,17 +24,27 @@ class GameOver extends Phaser.Scene {
             fixedWidth: 0
         }
 
-        this.add.text(game.config.width / 2 + 52, 25,
+        this.add.text(game.config.width / 2 + 52, 50,
             "GameOver", titleConfig)
-        this.add.text(game.config.width / 2 + 100, 75,
-            "Restart?", textConfig)
-
-        const score = this.registry.get("score")
-        this.add.text(game.config.width / 2 + 150, game.config.height / 2 - 75, 
-            score, textConfig)
+        this.retryButton = this.add.sprite(game.config.width / 2 + 160, 175, 
+            "retry").setInteractive()
+            
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+            this.scene.start("playScene")
+        })
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
+            this.retryButton.setTexture("retry_pressed")
+        })
+        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
+            this.retryButton.setTexture("retry")
+        })
+        
+        const highscore = this.registry.get("highscore");
+        this.add.text(game.config.width / 2 + 100, game.config.height / 2 + 15, 
+            `BEST: ${highscore}`, textConfig)
 
         // credits button
-        this.creditsButton = this.add.sprite(game.config.width / 2 + 150, game.config.height/2 + 125, 
+        this.creditsButton = this.add.sprite(game.config.width / 2 + 160, game.config.height/2 + 125, 
             "credits").setInteractive()
             
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {

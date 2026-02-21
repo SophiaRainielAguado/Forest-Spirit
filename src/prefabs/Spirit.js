@@ -9,37 +9,25 @@ class Spirit extends Phaser.Physics.Arcade.Sprite {
         this.setScale(0.75)
         this.body.setMass(10);
         this.body.setSize(143, 154);
-        //this.play({ key: "run", repeat: -1})//move down or transfer animations to load scene
+        this.play({ key: "run", repeat: -1})//move down or transfer animations to load scene
 
         this.jumpVelocity = -1250;
         this.isDead = false;
     }
 
-    // create(){
-    //     this.anims.create({
-    //         key: "run",
-    //         frames: this,anims.generateFrameNumbers("spirit", {
-    //             start: 0,
-    //             end: 1,
-    //         }),
-    //         frameRate: 30,
-    //     });
-
-    //     this.anims.create({
-    //         key: "jump",
-    //         frames: this,anims.generateFrameNumbers("spirit", {
-    //             start: 0,
-    //             end: 1,
-    //         }),
-    //         frameRate: 30,
-    //     });
-    // }
     jump(){
         if(this.body.blocked.down){
             this.body.setVelocityY(this.jumpVelocity)
-            // this.scene.time.delayedCall(100, () => {
-            //     this.play({ key: "jump", repeat: -1});
-            // })
+            this.scene.time.delayedCall(100, () => {
+                 this.play({ key: "jump", repeat: -1});
+            })
+            this.scene.sound.play("jump", {volume: 0.5})
         }
+    }
+
+    update(){
+        if (this.body.blocked.down && this.anims.currentAnim?.key === "jump") {
+        this.play({ key: "run", repeat: -1 });
+    }
     }
 }

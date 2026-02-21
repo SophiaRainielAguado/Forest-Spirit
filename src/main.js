@@ -8,7 +8,7 @@ const config = {
         default: "arcade",
         arcade: {
             gravity: {y:4000},
-            debug: true
+            debug: false
         }
     },
     scene: [Menu, Instructions, Play, GameOver, Credits]
