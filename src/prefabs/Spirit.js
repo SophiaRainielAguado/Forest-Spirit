@@ -35,7 +35,7 @@ class Spirit extends Phaser.Physics.Arcade.Sprite {
     //     });
     // }
     jump(){
-        if("setVelocityY" in this.body){
+        if(this.body.blocked.down){
             this.body.setVelocityY(this.jumpVelocity)
             // this.scene.time.delayedCall(100, () => {
             //     this.play({ key: "jump", repeat: -1});
