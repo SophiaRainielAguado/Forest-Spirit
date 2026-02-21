@@ -47,7 +47,7 @@ class Menu extends Phaser.Scene {
         this.startButton = this.add.image(115, game.config.height/2, "start")
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.scene.start("playScene")
+            this.scene.start("instructionsScene")
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
             this.startButton.setTexture("start_pressed")
@@ -60,7 +60,7 @@ class Menu extends Phaser.Scene {
         this.creditsButton = this.add.sprite(115, game.config.height/2 + 125, "credits")
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.scene.start("creditsScene")
+            this.scene.start("creditsScene", { previousScene: "menuScene" })
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
             this.creditsButton.setTexture("credits_pressed")

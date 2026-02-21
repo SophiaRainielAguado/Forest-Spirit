@@ -9,11 +9,12 @@ class Play extends Phaser.Scene {
         this.sun = this.add.image(100, game.config.height / 2, "sun")
         this.clouds = this.add.tileSprite(0, 0, 1280, 480, "clouds").setOrigin(0, 0).setAlpha(0.9)
         this.ground = this.add.tileSprite(0, 317, 640, 182, "ground").setOrigin(0, 0)
-        
-        
+
+
         // SCORE
         this.startTime = this.time.now
         this.score = 0;
+        this.registry.set("score", this.score)
         this.speed = 4;
 
         let scoreConfig = {
@@ -25,7 +26,7 @@ class Play extends Phaser.Scene {
             fixedWidth: 0
         }
         this.scoreText = this.add.text(20, this.scale.height / 2 + 80, `SCORE // ${this.score}`, scoreConfig
-);
+        );
 
         // PHYSICS PLATFORM || GROUND
         const groundGroup = this.physics.add.staticGroup();
@@ -72,11 +73,11 @@ class Play extends Phaser.Scene {
             // Random number of rocks
             const numberOfRocks = Phaser.Math.Between(1, 3)
             const spacing = 48
-            
-            for(let i = 0; i < numberOfRocks; i++){
-            const x = 700 + i * spacing
-            const obstacle = new Obstacle(this, x, game.config.height / 2 + 52, "rock")
-            this.obstacles.add(obstacle)
+
+            for (let i = 0; i < numberOfRocks; i++) {
+                const x = 700 + i * spacing
+                const obstacle = new Obstacle(this, x, game.config.height / 2 + 52, "rock")
+                this.obstacles.add(obstacle)
             }
             console.log(`Spawned ${numberOfRocks} rock(s)`);
         }
@@ -105,7 +106,10 @@ class Play extends Phaser.Scene {
             }
         })
 
-        spawnObstaclesPeriodically()
+        // wait 1 second to start spawning obstacles
+        this.time.delayedCall(1000, () => {
+            spawnObstaclesPeriodically()
+        })
     }
 
     update() {
@@ -116,7 +120,7 @@ class Play extends Phaser.Scene {
         this.ground.tilePositionX += this.speed;
 
         // GAME OVER FLAG
-        if(!this.forestSpirit.isDead){
+        if (!this.forestSpirit.isDead) {
             const elapsed = this.time.now - this.startTime
             this.score = Math.floor(elapsed / 1000)
             this.scoreText.setText(`SCORE // ${this.score}`);
