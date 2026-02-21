@@ -19,7 +19,7 @@ class Menu extends Phaser.Scene {
         // BACKGROUNDS
         this.load.image("bg_menu", "background/background_menu.png")
         this.load.image("bg_credits", "background/background_credits.png")
-        this.load.image("bg_gameOver", "background/background_gameover.png")
+        this.load.image("bg_gameOver", "background/background_gameOver.png")
 
         // PLAY SCENE BACKGROUND
         this.load.image("sky", "background/background_sky.png")
