@@ -49,7 +49,6 @@ class Menu extends Phaser.Scene {
         let menuConfig = { fontFamily: "Fantasy", fontSize: "45px", color: "#ffffff", align: "center" }
         this.add.text(game.config.width / 2, 95, "FOREST SPIRIT", menuConfig).setOrigin(0.5)
 
-        // --- BUTTONS ---
 
         // START BUTTON
         this.startButton = this.add.image(115, game.config.height / 2, "start")
