@@ -4,10 +4,9 @@ class Menu extends Phaser.Scene {
     }
 
     preload() {
-        // for cleaner path arguments
         this.load.path = "./assets/"
 
-        // USER INTERFACE SPRITES
+        // USER INTERFACE BUTTONS
         this.load.image("start", "userInterface/startButton.png")
         this.load.image("start_pressed", "userInterface/StartButton_Pressed.png")
         this.load.image("credits", "userInterface/creditsButton.png")
@@ -17,76 +16,60 @@ class Menu extends Phaser.Scene {
         this.load.image("back", "userInterface/backButton.png")
         this.load.image("back_pressed", "userInterface/backButton_Pressed.png")
 
-        // BACKGROUND
-        this.load.image("bg_menu", "background/background_menu.png")            // Main Menu Scene
-        this.load.image("instruct_grass", "background/background_ground.png")   //Instruction Scene
-        this.load.image("bg_gameOver", "background/background_gameover.png")    // GameOver Scene
-        this.load.image("bg_credits", "background/background_credits.png")      // Credits Scene
+        // BACKGROUNDS
+        this.load.image("bg_menu", "background/background_menu.png")
+        this.load.image("bg_credits", "background/background_credits.png")
+        this.load.image("bg_gameOver", "background/background_gameover.png")
 
-        //Play Scene
-        this.load.image("sun", "background/background_sun.png")
+        // PLAY SCENE BACKGROUND
         this.load.image("sky", "background/background_sky.png")
+        this.load.image("sun", "background/background_sun.png")
         this.load.image("clouds", "background/background_clouds.png")
+        this.load.image("instruct_grass", "background/background_ground.png")
         this.load.image("ground", "ground.png")
-        this.load.image("block", "runningBlock.png")
 
         // SPRITES
         this.load.image("player", "playerSprite.png")
-        this.load.spritesheet("spirit", "spiritSheet.png", {frameWidth: 143, frameHeight: 154})
+        this.load.spritesheet("spirit", "spiritSheet.png", { frameWidth: 143, frameHeight: 154 })
         this.load.image("rock", "tempBlock.png")
 
         // AUDIO
-        this.load.audio("music", "sfx/forestSpiritBG.wav");
-        this.load.audio("jump", "sfx/jump.wav");
-        this.load.audio("destroy", "sfx/destroy.wav");
-        this.load.audio("gameOver", "sfx/gameOver.wav");
-        this.load.audio("press", "sfx/pressed.wav");
+        this.load.audio("music", "sfx/forestSpiritBG.wav")
+        this.load.audio("jump", "sfx/jump.wav")
+        this.load.audio("destroy", "sfx/destroy.wav")
+        this.load.audio("gameOver", "sfx/gameOver.wav")
+        this.load.audio("press", "sfx/pressed.wav")
     }
 
     create() {
-        this.background = this.add.image(0,0, "bg_menu").setOrigin(0)
-        //Title
-        let menuConfig = {
-            fontFamily: "Fantasy",
-            fontSize: "45px",
-            color: "#ffffff",
-            alight: "right",
-            padding: { top: 5, bottom: 5 },
-            fixedWidth: 0
-        }
-        this.add.text(game.config.width / 2, 95,
-            "FOREST SPIRIT", menuConfig).setOrigin(0.5)
-        
-        
-        //BUTTONS
-        // Refrence: https://www.youtube.com/watch?v=xOW7Er9n1jY
-        // start button
-        this.startButton = this.add.image(115, game.config.height/2, "start")
-        .setInteractive()
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.sound.play("press", { volume: 0.5 });
-            this.scene.start("instructionsScene")
-        })
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
-            this.startButton.setTexture("start_pressed")
-        })
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-            this.startButton.setTexture("start")
-        })
+        // BACKGROUND
+        this.add.image(0, 0, "bg_menu").setOrigin(0)
 
-        // credits button
-        this.creditsButton = this.add.sprite(115, game.config.height/2 + 125, "credits")
-        .setInteractive()
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
-            this.sound.play("press", { volume: 0.5 });
-            this.scene.start("creditsScene", { previousScene: "menuScene" })
-        })
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
-            this.creditsButton.setTexture("credits_pressed")
-        })
-        .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => {
-            this.creditsButton.setTexture("credits")
-        })
+        // TITLE
+        let menuConfig = { fontFamily: "Fantasy", fontSize: "45px", color: "#ffffff", align: "center" }
+        this.add.text(game.config.width / 2, 95, "FOREST SPIRIT", menuConfig).setOrigin(0.5)
+
+        // --- BUTTONS ---
+
+        // START BUTTON
+        this.startButton = this.add.image(115, game.config.height / 2, "start")
+            .setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.sound.play("press", { volume: 0.5 });
+                this.scene.start("instructionsScene");
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => this.startButton.setTexture("start_pressed"))
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => this.startButton.setTexture("start"))
+
+        // CREDITS BUTTON
+        this.creditsButton = this.add.image(115, game.config.height / 2 + 125, "credits")
+            .setInteractive()
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.sound.play("press", { volume: 0.5 });
+                this.scene.start("creditsScene", { previousScene: "menuScene" });
+            })
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => this.creditsButton.setTexture("credits_pressed"))
+            .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OUT, () => this.creditsButton.setTexture("credits"))
 
         // PLAYER ANIMATIONS
         this.anims.create({
@@ -100,7 +83,7 @@ class Menu extends Phaser.Scene {
         });
         this.anims.create({
             key: "jump",
-            frames: [{ key: "spirit", frame: 2}],
+            frames: [{ key: "spirit", frame: 2 }],
             frameRate: 8,
             repeat: -1
         });
