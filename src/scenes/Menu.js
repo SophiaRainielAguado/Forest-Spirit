@@ -18,39 +18,29 @@ class Menu extends Phaser.Scene {
         this.load.image("back_pressed", "userInterface/backButton_Pressed.png")
 
         // BACKGROUND
-        // Main Menu Scene
-        this.load.image("bg_menu", "userInterface/background_menu.png")
-        
-        //Instruction Scene
-        this.load.image("instruct_grass", "background_ground.png")
+        this.load.image("bg_menu", "background/background_menu.png")            // Main Menu Scene
+        this.load.image("instruct_grass", "background/background_ground.png")   //Instruction Scene
+        this.load.image("bg_gameOver", "background/background_gameover.png")    // GameOver Scene
+        this.load.image("bg_credits", "background/background_credits.png")      // Credits Scene
 
         //Play Scene
-        this.load.image("sun", "background_sun.png")
-        this.load.image("sky", "background_sky.png")
-        this.load.image("clouds", "background_clouds.png")
+        this.load.image("sun", "background/background_sun.png")
+        this.load.image("sky", "background/background_sky.png")
+        this.load.image("clouds", "background/background_clouds.png")
         this.load.image("ground", "ground.png")
         this.load.image("block", "runningBlock.png")
 
-        // GameOver Scene
-        this.load.image("bg_gameOver", "background_gameover.png")
-
-        // Credits Scene
-        this.load.image("bg_credits", "background_credits.png")
-
         // SPRITES
         this.load.image("player", "playerSprite.png")
-        this.load.spritesheet("spirit", "spiritSheet.png", {
-            frameWidth: 143, frameHeight: 154
-        })
+        this.load.spritesheet("spirit", "spiritSheet.png", {frameWidth: 143, frameHeight: 154})
         this.load.image("rock", "tempBlock.png")
 
         // AUDIO
-        this.load.audio("music", "forestSpiritBG.wav");
-        this.load.audio("jump", "jump.wav");
-        this.load.audio("destroy", "destroy.wav");
-        this.load.audio("gameOver", "gameOver.wav");
-
-        this.load.audio("press", "pressed.wav");
+        this.load.audio("music", "sfx/forestSpiritBG.wav");
+        this.load.audio("jump", "sfx/jump.wav");
+        this.load.audio("destroy", "sfx/destroy.wav");
+        this.load.audio("gameOver", "sfx/gameOver.wav");
+        this.load.audio("press", "sfx/pressed.wav");
     }
 
     create() {
