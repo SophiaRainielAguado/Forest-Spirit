@@ -8,7 +8,7 @@ class Menu extends Phaser.Scene {
 
         // USER INTERFACE BUTTONS
         this.load.image("start", "userInterface/startButton.png")
-        this.load.image("start_pressed", "userInterface/StartButton_Pressed.png")
+        this.load.image("start_pressed", "userInterface/startButton_Pressed.png")
         this.load.image("credits", "userInterface/creditsButton.png")
         this.load.image("credits_pressed", "userInterface/creditsButton_Pressed.png")
         this.load.image("retry", "userInterface/retryButton.png")
