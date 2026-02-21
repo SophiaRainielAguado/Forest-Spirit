@@ -48,6 +48,9 @@ class Menu extends Phaser.Scene {
         this.load.audio("music", "forestSpiritBG.wav");
         this.load.audio("jump", "jump.wav");
         this.load.audio("destroy", "destroy.wav");
+        this.load.audio("gameOver", "gameOver.wav");
+
+        this.load.audio("press", "pressed.wav");
     }
 
     create() {
@@ -71,6 +74,7 @@ class Menu extends Phaser.Scene {
         this.startButton = this.add.image(115, game.config.height/2, "start")
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+            this.sound.play("press", { volume: 0.5 });
             this.scene.start("instructionsScene")
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
@@ -84,6 +88,7 @@ class Menu extends Phaser.Scene {
         this.creditsButton = this.add.sprite(115, game.config.height/2 + 125, "credits")
         .setInteractive()
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+            this.sound.play("press", { volume: 0.5 });
             this.scene.start("creditsScene", { previousScene: "menuScene" })
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {

@@ -104,6 +104,7 @@ class Play extends Phaser.Scene {
                 forestSpirit.isDead = true;
                 let highscore = scene.registry.get("highscore");
                 if (scene.score > highscore) { scene.registry.set("highscore", scene.score); }
+                scene.sound.play("gameOver", {volume: 0.5})
                 scene.scene.start("gameOverScene");
             }
         });

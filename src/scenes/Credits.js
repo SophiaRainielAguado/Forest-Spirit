@@ -12,6 +12,7 @@ class Credits extends Phaser.Scene {
         this.backButton = this.add.sprite(100, this.scale.height / 2 - 50,"back")
             .setInteractive()
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+                this.sound.play("press", { volume: 0.5 });
                 this.scene.start(previousSceneKey);
             })
             .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {

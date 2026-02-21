@@ -41,6 +41,7 @@ class Instructions extends Phaser.Scene {
         this.sun.rotation += 0.01;
 
         if (Phaser.Input.Keyboard.JustDown(this.space)) {
+            this.sound.play("press", { volume: 0.5 });
             this.scene.start("playScene")
         }
     }

@@ -30,6 +30,7 @@ class GameOver extends Phaser.Scene {
             "retry").setInteractive()
             
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+            this.sound.play("press", { volume: 0.5 });
             this.scene.start("playScene")
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
@@ -48,6 +49,7 @@ class GameOver extends Phaser.Scene {
             "credits").setInteractive()
             
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_DOWN, () => {
+            this.sound.play("press", { volume: 0.5 });
             this.scene.start("creditsScene", { previousScene: "gameOverScene" })
         })
         .on(Phaser.Input.Events.GAMEOBJECT_POINTER_OVER, () => {
